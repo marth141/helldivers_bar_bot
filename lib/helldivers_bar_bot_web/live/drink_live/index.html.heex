@@ -1,0 +1,43 @@
+<.header>
+  Listing Drinks
+  <:actions>
+    <.link patch={~p"/drinks/new"}>
+      <.button>New Drink</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="drinks"
+  rows={@streams.drinks}
+  row_click={fn {_id, drink} -> JS.navigate(~p"/drinks/#{drink}") end}
+>
+  <:col :let={{_id, drink}} label="Name"><%= drink.name %></:col>
+  <:col :let={{_id, drink}} label="Cost"><%= drink.cost %></:col>
+  <:col :let={{_id, drink}} label="Description"><%= drink.description %></:col>
+  <:action :let={{_id, drink}}>
+    <div class="sr-only">
+      <.link navigate={~p"/drinks/#{drink}"}>Show</.link>
+    </div>
+    <.link patch={~p"/drinks/#{drink}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, drink}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: drink.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="drink-modal" show on_cancel={JS.patch(~p"/drinks")}>
+  <.live_component
+    module={HelldiversBarBotWeb.DrinkLive.FormComponent}
+    id={@drink.id || :new}
+    title={@page_title}
+    action={@live_action}
+    drink={@drink}
+    patch={~p"/drinks"}
+  />
+</.modal>
