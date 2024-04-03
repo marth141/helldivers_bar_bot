@@ -21,6 +21,13 @@ defmodule HelldiversBarBotWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/members", MemberLive.Index, :index
+    live "/members/new", MemberLive.Index, :new
+    live "/members/:id/edit", MemberLive.Index, :edit
+
+    live "/members/:id", MemberLive.Show, :show
+    live "/members/:id/show/edit", MemberLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
