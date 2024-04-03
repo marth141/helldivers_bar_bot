@@ -3,3 +3,9 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+@layer components {
+    .my-table-row {
+        @apply px-6 py-4;
+    }
+}
