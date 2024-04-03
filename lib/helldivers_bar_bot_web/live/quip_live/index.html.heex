@@ -1,0 +1,41 @@
+<.header>
+  Listing Quips
+  <:actions>
+    <.link patch={~p"/quips/new"}>
+      <.button>New Quip</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="quips"
+  rows={@streams.quips}
+  row_click={fn {_id, quip} -> JS.navigate(~p"/quips/#{quip}") end}
+>
+  <:col :let={{_id, quip}} label="Text"><%= quip.text %></:col>
+  <:action :let={{_id, quip}}>
+    <div class="sr-only">
+      <.link navigate={~p"/quips/#{quip}"}>Show</.link>
+    </div>
+    <.link patch={~p"/quips/#{quip}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, quip}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: quip.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="quip-modal" show on_cancel={JS.patch(~p"/quips")}>
+  <.live_component
+    module={HelldiversBarBotWeb.QuipLive.FormComponent}
+    id={@quip.id || :new}
+    title={@page_title}
+    action={@live_action}
+    quip={@quip}
+    patch={~p"/quips"}
+  />
+</.modal>

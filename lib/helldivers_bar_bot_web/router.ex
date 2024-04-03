@@ -35,6 +35,13 @@ defmodule HelldiversBarBotWeb.Router do
 
     live "/drinks/:id", DrinkLive.Show, :show
     live "/drinks/:id/show/edit", DrinkLive.Show, :edit
+
+    live "/quips", QuipLive.Index, :index
+    live "/quips/new", QuipLive.Index, :new
+    live "/quips/:id/edit", QuipLive.Index, :edit
+
+    live "/quips/:id", QuipLive.Show, :show
+    live "/quips/:id/show/edit", QuipLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

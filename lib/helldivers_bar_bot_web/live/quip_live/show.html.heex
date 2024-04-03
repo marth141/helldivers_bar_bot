@@ -1,0 +1,26 @@
+<.header>
+  Quip <%= @quip.id %>
+  <:subtitle>This is a quip record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/quips/#{@quip}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit quip</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Text"><%= @quip.text %></:item>
+</.list>
+
+<.back navigate={~p"/quips"}>Back to quips</.back>
+
+<.modal :if={@live_action == :edit} id="quip-modal" show on_cancel={JS.patch(~p"/quips/#{@quip}")}>
+  <.live_component
+    module={HelldiversBarBotWeb.QuipLive.FormComponent}
+    id={@quip.id}
+    title={@page_title}
+    action={@live_action}
+    quip={@quip}
+    patch={~p"/quips/#{@quip}"}
+  />
+</.modal>
