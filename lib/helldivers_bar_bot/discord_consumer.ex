@@ -11,25 +11,25 @@ defmodule HelldiversBarBot.DiscordConsumer do
         Api.create_message(msg.channel_id, "I copy and pasted this code")
 
       _ ->
-        %Nostrum.Struct.Message{
-          author: %Nostrum.Struct.User{
-            id: discord_id
-          }
-        } = msg
+        # %Nostrum.Struct.Message{
+        #   author: %Nostrum.Struct.User{
+        #     id: discord_id
+        #   }
+        # } = msg
 
-        %Member{
-          messages_sent: messages_sent,
-          wallet: wallet
-        } = member = Members.get_member(discord_id: discord_id)
+        # %Member{
+        #   messages_sent: messages_sent,
+        #   wallet: wallet
+        # } = member = Members.get_member(discord_id: discord_id)
 
-        IO.inspect(member)
+        # IO.inspect(member)
 
-        member
-        |> Member.changeset(%{
-          "messages_sent" => messages_sent + 1,
-          "wallet" => Decimal.add(wallet, "0.25")
-        })
-        |> Repo.update!()
+        # member
+        # |> Member.changeset(%{
+        #   "messages_sent" => messages_sent + 1,
+        #   "wallet" => Decimal.add(wallet, "0.25")
+        # })
+        # |> Repo.update!()
 
         :ignore
     end

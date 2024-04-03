@@ -18,8 +18,6 @@ defmodule HelldiversBarBotWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    live "/guilds", GuildsLive.Index, :index
-    live "/members", MembersLive.Index, :index
   end
 
   # Other scopes may use custom stacks.
