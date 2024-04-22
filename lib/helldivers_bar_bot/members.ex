@@ -35,6 +35,7 @@ defmodule HelldiversBarBot.Members do
       ** (Ecto.NoResultsError)
 
   """
+  def get_member!(discord_id: discord_id), do: Repo.get_by!(Member, discord_id: discord_id)
   def get_member!(id), do: Repo.get!(Member, id)
 
   @doc """
@@ -49,6 +50,18 @@ defmodule HelldiversBarBot.Members do
       {:error, %Ecto.Changeset{}}
 
   """
+  def create_member(%Nostrum.Struct.Guild.Member{user_id: discord_id, nick: name} = struct) do
+    %Member{}
+    |> Member.changeset(%{"discord_id" => to_string(discord_id), "name" => name})
+    |> Repo.insert()
+  end
+
+  def create_member(%Nostrum.Struct.User{id: discord_id, username: name} = struct) do
+    %Member{}
+    |> Member.changeset(%{"discord_id" => to_string(discord_id), "name" => name})
+    |> Repo.insert()
+  end
+
   def create_member(attrs \\ %{}) do
     %Member{}
     |> Member.changeset(attrs)

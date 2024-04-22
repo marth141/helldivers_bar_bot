@@ -8,12 +8,6 @@ defmodule HelldiversBarBot do
   """
 
   alias HelldiversBarBot.Members
-  alias HelldiversBarBot.Guilds
-
-  def add_guilds() do
-    Nostrum.Api.get_current_user_guilds!()
-    |> Enum.each(&Guilds.create_guild(&1))
-  end
 
   def add_members() do
     Nostrum.Api.list_guild_members!(601_449_327_591_686_186, limit: 1000)
@@ -27,6 +21,15 @@ defmodule HelldiversBarBot do
       %Nostrum.Struct.Guild.Member{} = user ->
         user
     end)
-    |> Enum.each(&Members.create_members(&1))
+    |> Enum.each(&Members.create_member(&1))
+  end
+
+  def add_command() do
+    command = %{
+      name: "rick",
+      description: "summons rick"
+    }
+
+    Nostrum.Api.create_guild_application_command(601449327591686186, command)
   end
 end
