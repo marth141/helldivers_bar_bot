@@ -1,7 +1,7 @@
-defmodule HelldiversBarBotWeb.MemberLive.FormComponent do
+defmodule HelldiversBarBotWeb.HelldiverLive.FormComponent do
   use HelldiversBarBotWeb, :live_component
 
-  alias HelldiversBarBot.Members
+  alias HelldiversBarBot.Helldivers
 
   @impl true
   def render(assigns) do
@@ -9,12 +9,12 @@ defmodule HelldiversBarBotWeb.MemberLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage member records in your database.</:subtitle>
+        <:subtitle>Use this form to manage helldiver records in your database.</:subtitle>
       </.header>
 
       <.simple_form
         for={@form}
-        id="member-form"
+        id="helldiver-form"
         phx-target={@myself}
         phx-change="validate"
         phx-submit="save"
@@ -24,7 +24,7 @@ defmodule HelldiversBarBotWeb.MemberLive.FormComponent do
         <.input field={@form[:messages_sent]} type="number" label="Messages sent" />
         <.input field={@form[:wallet]} type="number" label="Wallet" step="any" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Member</.button>
+          <.button phx-disable-with="Saving...">Save Helldiver</.button>
         </:actions>
       </.simple_form>
     </div>
@@ -32,8 +32,8 @@ defmodule HelldiversBarBotWeb.MemberLive.FormComponent do
   end
 
   @impl true
-  def update(%{member: member} = assigns, socket) do
-    changeset = Members.change_member(member)
+  def update(%{helldiver: helldiver} = assigns, socket) do
+    changeset = Helldivers.change_helldiver(helldiver)
 
     {:ok,
      socket
@@ -42,27 +42,27 @@ defmodule HelldiversBarBotWeb.MemberLive.FormComponent do
   end
 
   @impl true
-  def handle_event("validate", %{"member" => member_params}, socket) do
+  def handle_event("validate", %{"helldiver" => helldiver_params}, socket) do
     changeset =
-      socket.assigns.member
-      |> Members.change_member(member_params)
+      socket.assigns.helldiver
+      |> Helldivers.change_helldiver(helldiver_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign_form(socket, changeset)}
   end
 
-  def handle_event("save", %{"member" => member_params}, socket) do
-    save_member(socket, socket.assigns.action, member_params)
+  def handle_event("save", %{"helldiver" => helldiver_params}, socket) do
+    save_helldiver(socket, socket.assigns.action, helldiver_params)
   end
 
-  defp save_member(socket, :edit, member_params) do
-    case Members.update_member(socket.assigns.member, member_params) do
-      {:ok, member} ->
-        notify_parent({:saved, member})
+  defp save_helldiver(socket, :edit, helldiver_params) do
+    case Helldivers.update_helldiver(socket.assigns.helldiver, helldiver_params) do
+      {:ok, helldiver} ->
+        notify_parent({:saved, helldiver})
 
         {:noreply,
          socket
-         |> put_flash(:info, "Member updated successfully")
+         |> put_flash(:info, "Helldiver updated successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -70,14 +70,14 @@ defmodule HelldiversBarBotWeb.MemberLive.FormComponent do
     end
   end
 
-  defp save_member(socket, :new, member_params) do
-    case Members.create_member(member_params) do
-      {:ok, member} ->
-        notify_parent({:saved, member})
+  defp save_helldiver(socket, :new, helldiver_params) do
+    case Helldivers.create_helldiver(helldiver_params) do
+      {:ok, helldiver} ->
+        notify_parent({:saved, helldiver})
 
         {:noreply,
          socket
-         |> put_flash(:info, "Member created successfully")
+         |> put_flash(:info, "Helldiver created successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

@@ -1,9 +1,12 @@
 defmodule HelldiversBarBot.DiscordConsumer do
   use Nostrum.Consumer
   alias HelldiversBarBot.Repo
-  alias HelldiversBarBot.Members.Member
-  alias HelldiversBarBot.Members
+  alias HelldiversBarBot.Helldivers.Helldiver
+  alias HelldiversBarBot.Helldivers
   alias Nostrum.Api
+  alias Nostrum.Struct.Interaction
+  alias Nostrum.Struct.ApplicationCommandInteractionData
+  alias Nostrum.Struct.Guild.Member, as: GuildMember
 
   def handle_event({:MESSAGE_CREATE, msg, _ws_state}) do
     content = String.downcase(msg.content)
@@ -36,6 +39,7 @@ defmodule HelldiversBarBot.DiscordConsumer do
           "Very doubtful",
           "oh yeh baby"
         ]
+
         Api.create_message(msg.channel_id, Enum.random(messages))
 
       _ ->
@@ -45,15 +49,15 @@ defmodule HelldiversBarBot.DiscordConsumer do
           }
         } = msg
 
-        %Member{
+        %Helldiver{
           messages_sent: messages_sent,
           wallet: wallet
-        } = member = Members.get_member!(discord_id: to_string(discord_id))
+        } = member = Helldivers.get_helldiver!(discord_id: to_string(discord_id))
 
         IO.inspect(member)
 
         member
-        |> Member.changeset(%{
+        |> Helldiver.changeset(%{
           "messages_sent" => messages_sent + 1,
           "wallet" => Decimal.add(wallet, "0.25")
         })
@@ -63,11 +67,41 @@ defmodule HelldiversBarBot.DiscordConsumer do
     end
   end
 
-  def handle_event({:INTERACTION_CREATE, msg, _ws_state}) do
+  def handle_event(
+        {:INTERACTION_CREATE,
+         %Interaction{data: %ApplicationCommandInteractionData{name: "rick"}} = msg, _ws_state}
+      ) do
+    IO.inspect(msg)
+
     response = %{
-      type: 4,  # ChannelMessageWithSource
+      # ChannelMessageWithSource
+      type: 4,
       data: %{
         content: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      }
+    }
+
+    Api.create_interaction_response(msg, response)
+  end
+
+  def handle_event(
+        {:INTERACTION_CREATE,
+         %Interaction{
+           data: %ApplicationCommandInteractionData{name: "balance"},
+           member: %GuildMember{
+             user_id: user_id
+           }
+         } = msg, _ws_state}
+      ) do
+    IO.inspect(msg)
+
+    %Helldiver{wallet: wallet} = Helldivers.get_helldiver!(discord_id: to_string(user_id))
+
+    response = %{
+      # ChannelMessageWithSource
+      type: 4,
+      data: %{
+        content: "Your balance is #{wallet}"
       }
     }
 

@@ -7,7 +7,8 @@ defmodule HelldiversBarBot do
   if it comes from the database, an external API or others.
   """
 
-  alias HelldiversBarBot.Members
+  alias HelldiversBarBot.Helldivers
+  alias Nostrum.Cache.Me
 
   def add_members() do
     Nostrum.Api.list_guild_members!(601_449_327_591_686_186, limit: 1000)
@@ -21,15 +22,22 @@ defmodule HelldiversBarBot do
       %Nostrum.Struct.Guild.Member{} = user ->
         user
     end)
-    |> Enum.each(&Members.create_member(&1))
+    |> Enum.each(&Helldivers.create_helldiver(&1))
+  end
+
+  def list_commands() do
+    application_id = Me.get().id
+    Nostrum.Api.get_global_application_commands(application_id)
   end
 
   def add_command() do
+    application_id = Me.get().id
+
     command = %{
-      name: "rick",
-      description: "summons rick"
+      name: "balance",
+      description: "checks wallet"
     }
 
-    Nostrum.Api.create_guild_application_command(601449327591686186, command)
+    Nostrum.Api.create_global_application_command(application_id, command)
   end
 end

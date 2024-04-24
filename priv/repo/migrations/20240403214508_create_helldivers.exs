@@ -1,8 +1,8 @@
-defmodule HelldiversBarBot.Repo.Migrations.CreateMembers do
+defmodule HelldiversBarBot.Repo.Migrations.CreateHelldivers do
   use Ecto.Migration
 
   def change do
-    create table(:members) do
+    create table(:helldivers) do
       add :discord_id, :string
       add :name, :string
       add :messages_sent, :integer

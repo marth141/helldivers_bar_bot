@@ -1,7 +1,7 @@
-defmodule HelldiversBarBotWeb.MemberLive.Show do
+defmodule HelldiversBarBotWeb.HelldiverLive.Show do
   use HelldiversBarBotWeb, :live_view
 
-  alias HelldiversBarBot.Members
+  alias HelldiversBarBot.Helldivers
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,9 +13,9 @@ defmodule HelldiversBarBotWeb.MemberLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:member, Members.get_member!(id))}
+     |> assign(:helldiver, Helldivers.get_helldiver!(id))}
   end
 
-  defp page_title(:show), do: "Show Member"
-  defp page_title(:edit), do: "Edit Member"
+  defp page_title(:show), do: "Show Helldiver"
+  defp page_title(:edit), do: "Edit Helldiver"
 end

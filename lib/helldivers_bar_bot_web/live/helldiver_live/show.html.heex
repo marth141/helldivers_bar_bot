@@ -1,0 +1,29 @@
+<.header>
+  Helldiver <%= @helldiver.id %>
+  <:subtitle>This is a helldiver record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/helldivers/#{@helldiver}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit helldiver</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Discord"><%= @helldiver.discord_id %></:item>
+  <:item title="Name"><%= @helldiver.name %></:item>
+  <:item title="Messages sent"><%= @helldiver.messages_sent %></:item>
+  <:item title="Wallet"><%= @helldiver.wallet %></:item>
+</.list>
+
+<.back navigate={~p"/helldivers"}>Back to helldivers</.back>
+
+<.modal :if={@live_action == :edit} id="helldiver-modal" show on_cancel={JS.patch(~p"/helldivers/#{@helldiver}")}>
+  <.live_component
+    module={HelldiversBarBotWeb.HelldiverLive.FormComponent}
+    id={@helldiver.id}
+    title={@page_title}
+    action={@live_action}
+    helldiver={@helldiver}
+    patch={~p"/helldivers/#{@helldiver}"}
+  />
+</.modal>

@@ -1,8 +1,8 @@
-defmodule HelldiversBarBot.Members.Member do
+defmodule HelldiversBarBot.Helldivers.Helldiver do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "members" do
+  schema "helldivers" do
     field :name, :string
     field :discord_id, :string
     field :messages_sent, :integer, default: 0

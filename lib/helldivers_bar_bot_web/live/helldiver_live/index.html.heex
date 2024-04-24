@@ -1,0 +1,44 @@
+<.header>
+  Listing Helldivers
+  <:actions>
+    <.link patch={~p"/helldivers/new"}>
+      <.button>New Helldiver</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="helldivers"
+  rows={@streams.helldivers}
+  row_click={fn {_id, helldiver} -> JS.navigate(~p"/helldivers/#{helldiver}") end}
+>
+  <:col :let={{_id, helldiver}} label="Discord"><%= helldiver.discord_id %></:col>
+  <:col :let={{_id, helldiver}} label="Name"><%= helldiver.name %></:col>
+  <:col :let={{_id, helldiver}} label="Messages sent"><%= helldiver.messages_sent %></:col>
+  <:col :let={{_id, helldiver}} label="Wallet"><%= helldiver.wallet %></:col>
+  <:action :let={{_id, helldiver}}>
+    <div class="sr-only">
+      <.link navigate={~p"/helldivers/#{helldiver}"}>Show</.link>
+    </div>
+    <.link patch={~p"/helldivers/#{helldiver}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, helldiver}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: helldiver.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="helldiver-modal" show on_cancel={JS.patch(~p"/helldivers")}>
+  <.live_component
+    module={HelldiversBarBotWeb.HelldiverLive.FormComponent}
+    id={@helldiver.id || :new}
+    title={@page_title}
+    action={@live_action}
+    helldiver={@helldiver}
+    patch={~p"/helldivers"}
+  />
+</.modal>

@@ -22,12 +22,12 @@ defmodule HelldiversBarBotWeb.Router do
 
     get "/", PageController, :home
 
-    live "/members", MemberLive.Index, :index
-    live "/members/new", MemberLive.Index, :new
-    live "/members/:id/edit", MemberLive.Index, :edit
+    live "/helldivers", HelldiverLive.Index, :index
+    live "/helldivers/new", HelldiverLive.Index, :new
+    live "/helldivers/:id/edit", HelldiverLive.Index, :edit
 
-    live "/members/:id", MemberLive.Show, :show
-    live "/members/:id/show/edit", MemberLive.Show, :edit
+    live "/helldivers/:id", HelldiverLive.Show, :show
+    live "/helldivers/:id/show/edit", HelldiverLive.Show, :edit
 
     live "/drinks", DrinkLive.Index, :index
     live "/drinks/new", DrinkLive.Index, :new
