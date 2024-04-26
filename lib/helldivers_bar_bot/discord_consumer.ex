@@ -107,4 +107,29 @@ defmodule HelldiversBarBot.DiscordConsumer do
 
     Api.create_interaction_response(msg, response)
   end
+
+  def handle_event(
+        {:INTERACTION_CREATE,
+         %Interaction{
+           data: %ApplicationCommandInteractionData{
+             name: "buy_drink",
+             options: [
+               %{name: "drink", value: drink},
+               %{name: "user", value: user_id}
+             ]
+           }
+         } = msg, _ws_state}
+      ) do
+    IO.inspect(msg)
+
+    response = %{
+      # ChannelMessageWithSource
+      type: 4,
+      data: %{
+        content: "You bought a #{drink} for <@#{user_id}>"
+      }
+    }
+
+    Api.create_interaction_response(msg, response)
+  end
 end

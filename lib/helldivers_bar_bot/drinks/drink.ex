@@ -5,7 +5,7 @@ defmodule HelldiversBarBot.Drinks.Drink do
   schema "drinks" do
     field :name, :string
     field :description, :string
-    field :cost, :integer
+    field :cost, :decimal
 
     timestamps(type: :utc_datetime)
   end

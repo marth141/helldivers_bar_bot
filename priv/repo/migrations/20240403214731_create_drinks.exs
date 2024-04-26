@@ -4,7 +4,7 @@ defmodule HelldiversBarBot.Repo.Migrations.CreateDrinks do
   def change do
     create table(:drinks) do
       add :name, :string
-      add :cost, :integer
+      add :cost, :decimal
       add :description, :string
 
       timestamps(type: :utc_datetime)
