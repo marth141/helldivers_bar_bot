@@ -10,8 +10,15 @@ defmodule HelldiversBarBot do
   alias HelldiversBarBot.Helldivers
   alias Nostrum.Cache.Me
 
+  def install() do
+    add_members()
+    add_balance_command()
+    add_buy_drink_command()
+    add_drinks()
+  end
+
   def add_members() do
-    Nostrum.Api.list_guild_members!(601_449_327_591_686_186, limit: 1000)
+    Nostrum.Api.list_guild_members!(1_206_975_690_654_883_870, limit: 1000)
     |> Enum.map(fn
       %Nostrum.Struct.Guild.Member{
         user_id: discord_id,
@@ -67,5 +74,14 @@ defmodule HelldiversBarBot do
     }
 
     Nostrum.Api.create_global_application_command(application_id, command)
+  end
+
+  def add_drinks() do
+    [
+      %{name: "Beer", description: "Your old fashion regular beer", cost: "0.25"}
+    ]
+    |> Enum.each(fn drink ->
+      HelldiversBarBot.Drinks.create_drink(drink)
+    end)
   end
 end
