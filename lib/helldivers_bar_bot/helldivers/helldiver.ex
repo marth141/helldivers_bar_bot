@@ -15,7 +15,6 @@ defmodule HelldiversBarBot.Helldivers.Helldiver do
   def changeset(member, attrs) do
     member
     |> cast(attrs, [:discord_id, :name, :messages_sent, :wallet])
-    |> IO.inspect()
     |> validate_required([:discord_id])
   end
 end

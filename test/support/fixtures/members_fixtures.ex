@@ -1,14 +1,14 @@
-defmodule HelldiversBarBot.MembersFixtures do
+defmodule HelldiversBarBot.HelldiversFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `HelldiversBarBot.Members` context.
+  entities via the `HelldiversBarBot.Helldivers` context.
   """
 
   @doc """
-  Generate a member.
+  Generate a helldiver.
   """
-  def member_fixture(attrs \\ %{}) do
-    {:ok, member} =
+  def helldiver_fixture(attrs \\ %{}) do
+    {:ok, helldiver} =
       attrs
       |> Enum.into(%{
         discord_id: "some discord_id",
@@ -16,8 +16,8 @@ defmodule HelldiversBarBot.MembersFixtures do
         name: "some name",
         wallet: "120.5"
       })
-      |> HelldiversBarBot.Members.create_member()
+      |> HelldiversBarBot.Helldivers.create_helldiver()
 
-    member
+    helldiver
   end
 end

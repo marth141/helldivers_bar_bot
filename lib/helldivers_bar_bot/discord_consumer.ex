@@ -54,8 +54,6 @@ defmodule HelldiversBarBot.DiscordConsumer do
           wallet: wallet
         } = member = Helldivers.get_helldiver!(discord_id: to_string(discord_id))
 
-        IO.inspect(member)
-
         member
         |> Helldiver.changeset(%{
           "messages_sent" => messages_sent + 1,
@@ -71,8 +69,6 @@ defmodule HelldiversBarBot.DiscordConsumer do
         {:INTERACTION_CREATE,
          %Interaction{data: %ApplicationCommandInteractionData{name: "rick"}} = msg, _ws_state}
       ) do
-    IO.inspect(msg)
-
     response = %{
       # ChannelMessageWithSource
       type: 4,
@@ -93,8 +89,6 @@ defmodule HelldiversBarBot.DiscordConsumer do
            }
          } = msg, _ws_state}
       ) do
-    IO.inspect(msg)
-
     %Helldiver{wallet: wallet} = Helldivers.get_helldiver!(discord_id: to_string(user_id))
 
     response = %{
@@ -120,8 +114,6 @@ defmodule HelldiversBarBot.DiscordConsumer do
            }
          } = msg, _ws_state}
       ) do
-    IO.inspect(msg)
-
     response = %{
       # ChannelMessageWithSource
       type: 4,

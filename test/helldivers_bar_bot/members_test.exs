@@ -1,26 +1,26 @@
-defmodule HelldiversBarBot.MembersTest do
+defmodule HelldiversBarBot.HelldiversTest do
   use HelldiversBarBot.DataCase
 
-  alias HelldiversBarBot.Members
+  alias HelldiversBarBot.Helldivers
 
-  describe "members" do
-    alias HelldiversBarBot.Members.Member
+  describe "Helldivers" do
+    alias HelldiversBarBot.Helldivers.Helldiver
 
-    import HelldiversBarBot.MembersFixtures
+    import HelldiversBarBot.HelldiversFixtures
 
     @invalid_attrs %{name: nil, discord_id: nil, messages_sent: nil, wallet: nil}
 
-    test "list_members/0 returns all members" do
-      member = member_fixture()
-      assert Members.list_members() == [member]
+    test "list_helldivers/0 returns all helldivers" do
+      helldiver = helldiver_fixture()
+      assert Helldivers.list_helldivers() == [helldiver]
     end
 
-    test "get_member!/1 returns the member with given id" do
-      member = member_fixture()
-      assert Members.get_member!(member.id) == member
+    test "get_helldiver!/1 returns the helldiver with given id" do
+      helldiver = helldiver_fixture()
+      assert Helldivers.get_helldiver!(helldiver.id) == helldiver
     end
 
-    test "create_member/1 with valid data creates a member" do
+    test "create_helldiver/1 with valid data creates a helldiver" do
       valid_attrs = %{
         name: "some name",
         discord_id: "some discord_id",
@@ -28,19 +28,19 @@ defmodule HelldiversBarBot.MembersTest do
         wallet: "120.5"
       }
 
-      assert {:ok, %Member{} = member} = Members.create_member(valid_attrs)
-      assert member.name == "some name"
-      assert member.discord_id == "some discord_id"
-      assert member.messages_sent == 42
-      assert member.wallet == Decimal.new("120.5")
+      assert {:ok, %Helldiver{} = helldiver} = Helldivers.create_helldiver(valid_attrs)
+      assert helldiver.name == "some name"
+      assert helldiver.discord_id == "some discord_id"
+      assert helldiver.messages_sent == 42
+      assert helldiver.wallet == Decimal.new("120.5")
     end
 
-    test "create_member/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Members.create_member(@invalid_attrs)
+    test "create_helldiver/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Helldivers.create_helldiver(@invalid_attrs)
     end
 
-    test "update_member/2 with valid data updates the member" do
-      member = member_fixture()
+    test "update_helldiver/2 with valid data updates the helldiver" do
+      helldiver = helldiver_fixture()
 
       update_attrs = %{
         name: "some updated name",
@@ -49,28 +49,28 @@ defmodule HelldiversBarBot.MembersTest do
         wallet: "456.7"
       }
 
-      assert {:ok, %Member{} = member} = Members.update_member(member, update_attrs)
-      assert member.name == "some updated name"
-      assert member.discord_id == "some updated discord_id"
-      assert member.messages_sent == 43
-      assert member.wallet == Decimal.new("456.7")
+      assert {:ok, %Helldiver{} = helldiver} = Helldivers.update_helldiver(helldiver, update_attrs)
+      assert helldiver.name == "some updated name"
+      assert helldiver.discord_id == "some updated discord_id"
+      assert helldiver.messages_sent == 43
+      assert helldiver.wallet == Decimal.new("456.7")
     end
 
-    test "update_member/2 with invalid data returns error changeset" do
-      member = member_fixture()
-      assert {:error, %Ecto.Changeset{}} = Members.update_member(member, @invalid_attrs)
-      assert member == Members.get_member!(member.id)
+    test "update_helldiver/2 with invalid data returns error changeset" do
+      helldiver = helldiver_fixture()
+      assert {:error, %Ecto.Changeset{}} = Helldivers.update_helldiver(helldiver, @invalid_attrs)
+      assert helldiver == Helldivers.get_helldiver!(helldiver.id)
     end
 
-    test "delete_member/1 deletes the member" do
-      member = member_fixture()
-      assert {:ok, %Member{}} = Members.delete_member(member)
-      assert_raise Ecto.NoResultsError, fn -> Members.get_member!(member.id) end
+    test "delete_helldiver/1 deletes the helldiver" do
+      helldiver = helldiver_fixture()
+      assert {:ok, %Helldiver{}} = Helldivers.delete_helldiver(helldiver)
+      assert_raise Ecto.NoResultsError, fn -> Helldivers.get_helldiver!(helldiver.id) end
     end
 
-    test "change_member/1 returns a member changeset" do
-      member = member_fixture()
-      assert %Ecto.Changeset{} = Members.change_member(member)
+    test "change_helldiver/1 returns a helldiver changeset" do
+      helldiver = helldiver_fixture()
+      assert %Ecto.Changeset{} = Helldivers.change_helldiver(helldiver)
     end
   end
 end
