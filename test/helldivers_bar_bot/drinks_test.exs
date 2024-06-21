@@ -26,7 +26,7 @@ defmodule HelldiversBarBot.DrinksTest do
       assert {:ok, %Drink{} = drink} = Drinks.create_drink(valid_attrs)
       assert drink.name == "some name"
       assert drink.description == "some description"
-      assert drink.cost == 42
+      assert drink.cost == Decimal.new("42")
     end
 
     test "create_drink/1 with invalid data returns error changeset" do
@@ -45,7 +45,7 @@ defmodule HelldiversBarBot.DrinksTest do
       assert {:ok, %Drink{} = drink} = Drinks.update_drink(drink, update_attrs)
       assert drink.name == "some updated name"
       assert drink.description == "some updated description"
-      assert drink.cost == 43
+      assert drink.cost == Decimal.new("43")
     end
 
     test "update_drink/2 with invalid data returns error changeset" do
