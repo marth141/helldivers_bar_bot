@@ -31,7 +31,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="drink-modal" show on_cancel={JS.patch(~p"/drinks")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="drink-modal"
+  show
+  on_cancel={JS.patch(~p"/drinks")}
+>
   <.live_component
     module={HelldiversBarBotWeb.DrinkLive.FormComponent}
     id={@drink.id || :new}

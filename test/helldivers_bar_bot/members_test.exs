@@ -21,7 +21,12 @@ defmodule HelldiversBarBot.MembersTest do
     end
 
     test "create_member/1 with valid data creates a member" do
-      valid_attrs = %{name: "some name", discord_id: "some discord_id", messages_sent: 42, wallet: "120.5"}
+      valid_attrs = %{
+        name: "some name",
+        discord_id: "some discord_id",
+        messages_sent: 42,
+        wallet: "120.5"
+      }
 
       assert {:ok, %Member{} = member} = Members.create_member(valid_attrs)
       assert member.name == "some name"
@@ -36,7 +41,13 @@ defmodule HelldiversBarBot.MembersTest do
 
     test "update_member/2 with valid data updates the member" do
       member = member_fixture()
-      update_attrs = %{name: "some updated name", discord_id: "some updated discord_id", messages_sent: 43, wallet: "456.7"}
+
+      update_attrs = %{
+        name: "some updated name",
+        discord_id: "some updated discord_id",
+        messages_sent: 43,
+        wallet: "456.7"
+      }
 
       assert {:ok, %Member{} = member} = Members.update_member(member, update_attrs)
       assert member.name == "some updated name"

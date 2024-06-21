@@ -17,7 +17,12 @@
 
 <.back navigate={~p"/helldivers"}>Back to helldivers</.back>
 
-<.modal :if={@live_action == :edit} id="helldiver-modal" show on_cancel={JS.patch(~p"/helldivers/#{@helldiver}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="helldiver-modal"
+  show
+  on_cancel={JS.patch(~p"/helldivers/#{@helldiver}")}
+>
   <.live_component
     module={HelldiversBarBotWeb.HelldiverLive.FormComponent}
     id={@helldiver.id}

@@ -35,7 +35,12 @@ defmodule HelldiversBarBot.DrinksTest do
 
     test "update_drink/2 with valid data updates the drink" do
       drink = drink_fixture()
-      update_attrs = %{name: "some updated name", description: "some updated description", cost: 43}
+
+      update_attrs = %{
+        name: "some updated name",
+        description: "some updated description",
+        cost: 43
+      }
 
       assert {:ok, %Drink{} = drink} = Drinks.update_drink(drink, update_attrs)
       assert drink.name == "some updated name"

@@ -4,8 +4,18 @@ defmodule HelldiversBarBotWeb.MemberLiveTest do
   import Phoenix.LiveViewTest
   import HelldiversBarBot.MembersFixtures
 
-  @create_attrs %{name: "some name", discord_id: "some discord_id", messages_sent: 42, wallet: "120.5"}
-  @update_attrs %{name: "some updated name", discord_id: "some updated discord_id", messages_sent: 43, wallet: "456.7"}
+  @create_attrs %{
+    name: "some name",
+    discord_id: "some discord_id",
+    messages_sent: 42,
+    wallet: "120.5"
+  }
+  @update_attrs %{
+    name: "some updated name",
+    discord_id: "some updated discord_id",
+    messages_sent: 43,
+    wallet: "456.7"
+  }
   @invalid_attrs %{name: nil, discord_id: nil, messages_sent: nil, wallet: nil}
 
   defp create_member(_) do

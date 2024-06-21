@@ -2,7 +2,9 @@ defmodule HelldiversBarBotWeb.ErrorJSONTest do
   use HelldiversBarBotWeb.ConnCase, async: true
 
   test "renders 404" do
-    assert HelldiversBarBotWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
+    assert HelldiversBarBotWeb.ErrorJSON.render("404.json", %{}) == %{
+             errors: %{detail: "Not Found"}
+           }
   end
 
   test "renders 500" do

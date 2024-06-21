@@ -10,7 +10,8 @@ defmodule HelldiversBarBot.Application do
     children = [
       HelldiversBarBotWeb.Telemetry,
       HelldiversBarBot.Repo,
-      {DNSCluster, query: Application.get_env(:helldivers_bar_bot, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:helldivers_bar_bot, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: HelldiversBarBot.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: HelldiversBarBot.Finch},
