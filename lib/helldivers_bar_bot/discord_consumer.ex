@@ -13,8 +13,7 @@ defmodule HelldiversBarBot.DiscordConsumer do
   alias Nostrum.Struct.User
   alias Nostrum.Struct.WSState
 
-  @spec handle_event({:MESSAGE_CREATE, Message.t(), WSState.t()}) ::
-          any()
+  @spec handle_event({:MESSAGE_CREATE, Message.t(), WSState.t()}) :: any()
   def handle_event(
         {:MESSAGE_CREATE, %Message{author: %User{id: discord_user_id}, content: content} = msg,
          _ws_state}
