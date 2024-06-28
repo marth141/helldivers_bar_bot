@@ -71,9 +71,9 @@ defmodule HelldiversBarBot do
   end
 
   def add_drinks() do
-    [
-      %{name: "Beer", description: "Your old fashion regular beer", cost: "0.25"}
-    ]
+    File.stream!("drinks.csv")
+    |> CSV.decode(headers: true)
+    |> Enum.map(fn {:ok, drink} -> drink end)
     |> Enum.each(fn drink ->
       HelldiversBarBot.Drinks.create_drink(drink)
     end)
