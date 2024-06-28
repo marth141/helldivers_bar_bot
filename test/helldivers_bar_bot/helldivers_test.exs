@@ -49,7 +49,9 @@ defmodule HelldiversBarBot.HelldiversTest do
         wallet: "456.7"
       }
 
-      assert {:ok, %Helldiver{} = helldiver} = Helldivers.update_helldiver(helldiver, update_attrs)
+      assert {:ok, %Helldiver{} = helldiver} =
+               Helldivers.update_helldiver(helldiver, update_attrs)
+
       assert helldiver.name == "some updated name"
       assert helldiver.discord_id == "some updated discord_id"
       assert helldiver.messages_sent == 43

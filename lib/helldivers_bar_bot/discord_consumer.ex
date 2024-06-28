@@ -1,13 +1,12 @@
 defmodule HelldiversBarBot.DiscordConsumer do
   use Nostrum.Consumer
 
-  alias HelldiversBarBot.MagicEightBall
+  alias HelldiversBarBot.DiscordConsumer.Balance
+  alias HelldiversBarBot.DiscordConsumer.BuyDrink
   alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
-  alias HelldiversBarBot.Helldivers
-  alias HelldiversBarBot.Helldivers.Helldiver
+  alias HelldiversBarBot.MagicEightBall
   alias Nostrum.Api
   alias Nostrum.Struct.ApplicationCommandInteractionData
-  alias Nostrum.Struct.Guild.Member, as: GuildMember
   alias Nostrum.Struct.Interaction
   alias Nostrum.Struct.Message
   alias Nostrum.Struct.User
@@ -30,7 +29,7 @@ defmodule HelldiversBarBot.DiscordConsumer do
         Api.create_message(msg.channel_id, Enum.random(phrases))
 
       _ ->
-        FindOrCreateHelldiver.call(discord_user_id)
+        FindOrCreateHelldiver.main(discord_user_id)
 
         :ignore
     end
@@ -54,45 +53,20 @@ defmodule HelldiversBarBot.DiscordConsumer do
   def handle_event(
         {:INTERACTION_CREATE,
          %Interaction{
-           data: %ApplicationCommandInteractionData{name: "balance"},
-           member: %GuildMember{
-             user_id: user_id
-           }
+           data: %ApplicationCommandInteractionData{name: "balance"}
          } = msg, _ws_state}
       ) do
-    %Helldiver{wallet: wallet} = Helldivers.get_helldiver!(discord_id: to_string(user_id))
-
-    response = %{
-      # ChannelMessageWithSource
-      type: 4,
-      data: %{
-        content: "Your balance is #{wallet}"
-      }
-    }
-
-    Api.create_interaction_response(msg, response)
+    Balance.main(msg)
   end
 
   def handle_event(
         {:INTERACTION_CREATE,
          %Interaction{
            data: %ApplicationCommandInteractionData{
-             name: "buy_drink",
-             options: [
-               %{name: "drink", value: drink},
-               %{name: "user", value: user_id}
-             ]
+             name: "buy_drink"
            }
          } = msg, _ws_state}
       ) do
-    response = %{
-      # ChannelMessageWithSource
-      type: 4,
-      data: %{
-        content: "You bought a #{drink} for <@#{user_id}>"
-      }
-    }
-
-    Api.create_interaction_response(msg, response)
+    BuyDrink.main(msg)
   end
 end

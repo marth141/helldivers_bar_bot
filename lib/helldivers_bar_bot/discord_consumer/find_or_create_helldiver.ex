@@ -2,9 +2,9 @@ defmodule HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver do
   alias HelldiversBarBot.Helldivers
   alias HelldiversBarBot.Helldivers.Helldiver
 
-  @spec call(String.t()) :: any()
-  def call(discord_user_id) do
-    case Helldivers.get_helldiver!(discord_id: to_string(discord_user_id)) do
+  @spec main(String.t()) :: any()
+  def main(discord_user_id) do
+    case Helldivers.get_helldiver_by_discord_id!(to_string(discord_user_id)) do
       # Found Helldiver
       %Helldiver{
         messages_sent: messages_sent,

@@ -7,18 +7,19 @@ defmodule HelldiversBarBot do
   if it comes from the database, an external API or others.
   """
 
+  alias HelldiversBarBot.Commands.BalanceCommnd
   alias HelldiversBarBot.Helldivers
   alias Nostrum.Cache.Me
 
-  def install() do
-    add_members()
+  def install(guild_id) do
+    add_members(guild_id)
     add_balance_command()
     add_buy_drink_command()
     add_drinks()
   end
 
-  def add_members() do
-    Nostrum.Api.list_guild_members!(1_206_975_690_654_883_870, limit: 1000)
+  def add_members(guild_id) do
+    Nostrum.Api.list_guild_members!(guild_id, limit: 1000)
     |> Enum.map(fn
       %Nostrum.Struct.Guild.Member{
         user_id: discord_id,
@@ -42,14 +43,7 @@ defmodule HelldiversBarBot do
   end
 
   def add_balance_command() do
-    application_id = Me.get().id
-
-    command = %{
-      name: "balance",
-      description: "checks wallet"
-    }
-
-    Nostrum.Api.create_global_application_command(application_id, command)
+    BalanceCommnd.add()
   end
 
   def add_buy_drink_command() do

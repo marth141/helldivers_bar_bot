@@ -34,8 +34,11 @@ defmodule HelldiversBarBot.Helldivers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_helldiver!(discord_id: discord_id), do: Repo.get_by!(Helldiver, discord_id: discord_id)
   def get_helldiver!(id), do: Repo.get!(Helldiver, id)
+
+  @spec get_helldiver_by_discord_id!(String.t()) :: %Helldiver{} | %Ecto.NoResultsError{}
+  def get_helldiver_by_discord_id!(discord_id),
+    do: Repo.get_by!(Helldiver, discord_id: discord_id)
 
   @doc """
   Creates a helldiver.
