@@ -7,16 +7,16 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
   alias HelldiversBarBot.Helldivers.Helldiver
   alias Nostrum.Api
   alias Nostrum.Struct.ApplicationCommandInteractionData
-  alias Nostrum.Struct.Guild.Member
   alias Nostrum.Struct.Interaction
+  alias Nostrum.Struct.User
 
   # credo:disable-for-next-line
   @spec main(%Interaction{}) :: :ok | {:error, any()}
   def main(
         %Interaction{
           data: %ApplicationCommandInteractionData{name: "balance"},
-          member: %Member{
-            user_id: user_id
+          user: %User{
+            id: user_id
           }
         } = msg
       ) do
