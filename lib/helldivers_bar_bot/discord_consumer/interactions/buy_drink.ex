@@ -13,7 +13,8 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
   alias Nostrum.Struct.Interaction
   alias HelldiversBarBot.Helldivers
 
-  @spec main(Interaction.t()) :: :ok | {:error, any()}
+  # credo:disable-for-next-line
+  @spec main(%Interaction{}) :: :ok | {:error, any()}
   def main(
         %Interaction{
           data: %ApplicationCommandInteractionData{
