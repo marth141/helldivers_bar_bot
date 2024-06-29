@@ -2,8 +2,8 @@ defmodule HelldiversBarBot.DiscordConsumer do
   use Nostrum.Consumer
 
   alias HelldiversBarBot.DiscordConsumer.IncrementWallet
-  alias HelldiversBarBot.DiscordConsumer.Balance
-  alias HelldiversBarBot.DiscordConsumer.BuyDrink
+  alias HelldiversBarBot.DiscordConsumer.Interactions.Balance
+  alias HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink
   alias HelldiversBarBot.MagicEightBall
   alias Nostrum.Api
   alias Nostrum.Struct.ApplicationCommandInteractionData
@@ -37,23 +37,10 @@ defmodule HelldiversBarBot.DiscordConsumer do
 
   def handle_event(
         {:INTERACTION_CREATE,
-         %Interaction{data: %ApplicationCommandInteractionData{name: "rick"}} = msg, _ws_state}
-      ) do
-    response = %{
-      # ChannelMessageWithSource
-      type: 4,
-      data: %{
-        content: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      }
-    }
-
-    Api.create_interaction_response(msg, response)
-  end
-
-  def handle_event(
-        {:INTERACTION_CREATE,
          %Interaction{
-           data: %ApplicationCommandInteractionData{name: "balance"}
+           data: %ApplicationCommandInteractionData{
+             name: "balance"
+           }
          } = msg, _ws_state}
       ) do
     Balance.main(msg)

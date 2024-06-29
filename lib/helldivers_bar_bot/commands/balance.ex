@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Commands.Balance do
+  @moduledoc """
+  Contains the logic for adding balance command to the Bot's Application Commands
+  """
+
   alias Nostrum.Cache.Me
 
   def add() do

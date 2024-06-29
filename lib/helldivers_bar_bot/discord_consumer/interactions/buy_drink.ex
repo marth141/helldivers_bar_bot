@@ -1,4 +1,10 @@
-defmodule HelldiversBarBot.DiscordConsumer.BuyDrink do
+defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
+  @moduledoc """
+  Handles the buying of a drink on Bot Application Command Interaction
+  """
+
+  alias HelldiversBarBot.Drinks
+  alias HelldiversBarBot.Drinks.Drink
   alias Nostrum.Struct.User
   alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
   alias HelldiversBarBot.Helldivers.Helldiver
@@ -7,6 +13,7 @@ defmodule HelldiversBarBot.DiscordConsumer.BuyDrink do
   alias Nostrum.Struct.Interaction
   alias HelldiversBarBot.Helldivers
 
+  @spec main(%Interaction{}) :: :ok | {:error, any()}
   def main(
         %Interaction{
           data: %ApplicationCommandInteractionData{
@@ -19,13 +26,16 @@ defmodule HelldiversBarBot.DiscordConsumer.BuyDrink do
           user: %User{id: buyer_discord_id}
         } = msg
       ) do
-    IO.inspect(msg)
+    %Drink{description: description} = Drinks.get_drink_by_name!(drink)
 
     response = %{
-      # ChannelMessageWithSource
       type: 4,
       data: %{
-        content: "You bought a #{drink} for <@#{receiver_discord_id}>"
+        content: """
+        You bought a #{drink} for <@#{receiver_discord_id}>
+
+        #{drink} is a #{description}
+        """
       }
     }
 
@@ -35,10 +45,11 @@ defmodule HelldiversBarBot.DiscordConsumer.BuyDrink do
         "messages_sent" => messages_sent + 1,
         "wallet" => Decimal.sub(wallet, "0.25")
       })
+
+      Api.create_interaction_response(msg, response)
+      :ok
     else
       {:error, reason} -> {:error, reason}
     end
-
-    Api.create_interaction_response(msg, response)
   end
 end

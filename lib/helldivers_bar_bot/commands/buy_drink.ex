@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Commands.BuyDrink do
+  @moduledoc """
+  Contains the logic for adding buy_drink command to the Bot's Application Commands
+  """
+
   alias Nostrum.Cache.Me
 
   def add() do

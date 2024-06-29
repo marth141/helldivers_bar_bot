@@ -2,7 +2,8 @@
 
 # Overview
 
-This bot was built for the 606th community by Kerobero's using a standard simple Elixir stack. See infrastructure to learn more.
+This bot was built for the Helldiver 606th community as a roleplay bar tender bot. It is built using a standard Elixir with Phoenix Framework stack. See infrastructure to learn more.
+
 # Features
 
 ## Slash Commands
