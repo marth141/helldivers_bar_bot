@@ -2,23 +2,20 @@ defmodule HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver do
   alias HelldiversBarBot.Helldivers
   alias HelldiversBarBot.Helldivers.Helldiver
 
-  @spec main(String.t()) :: any()
+  @spec main(String.t()) :: {:ok, %Helldiver{}} | {:error, any()}
   def main(discord_user_id) do
-    case Helldivers.get_helldiver_by_discord_id!(to_string(discord_user_id)) do
+    with %Helldiver{} = helldiver <-
+           Helldivers.get_helldiver_by_discord_id(to_string(discord_user_id)) do
       # Found Helldiver
-      %Helldiver{
-        messages_sent: messages_sent,
-        wallet: wallet
-      } = helldiver ->
-        Helldivers.update_helldiver(helldiver, %{
-          "messages_sent" => messages_sent + 1,
-          "wallet" => Decimal.add(wallet, "0.25")
-        })
-
+      {:ok, helldiver}
+    else
       # Helldiver not found
-      _ ->
-        Nostrum.Api.get_user!(discord_user_id)
-        |> Helldivers.create_helldiver()
+      nil ->
+        with {:ok, user} <- Nostrum.Api.get_user(discord_user_id) do
+          Helldivers.create_helldiver(user)
+        else
+          {:error, message} -> {:error, message}
+        end
     end
   end
 end

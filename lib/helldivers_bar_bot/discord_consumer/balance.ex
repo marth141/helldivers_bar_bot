@@ -1,5 +1,5 @@
 defmodule HelldiversBarBot.DiscordConsumer.Balance do
-  alias HelldiversBarBot.Helldivers
+  alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
   alias HelldiversBarBot.Helldivers.Helldiver
   alias Nostrum.Api
   alias Nostrum.Struct.ApplicationCommandInteractionData
@@ -14,7 +14,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Balance do
           }
         } = msg
       ) do
-    %Helldiver{wallet: wallet} = Helldivers.get_helldiver_by_discord_id!(to_string(user_id))
+    {:ok, %Helldiver{wallet: wallet}} = FindOrCreateHelldiver.main(user_id)
 
     response = %{
       # ChannelMessageWithSource

@@ -1,4 +1,4 @@
-defmodule HelldiversBarBot.Commands.BalanceCommnd do
+defmodule HelldiversBarBot.Commands.Balance do
   alias Nostrum.Cache.Me
 
   def add() do
