@@ -1,9 +1,9 @@
 defmodule HelldiversBarBot.DiscordConsumer do
   use Nostrum.Consumer
 
+  alias HelldiversBarBot.DiscordConsumer.IncrementWallet
   alias HelldiversBarBot.DiscordConsumer.Balance
   alias HelldiversBarBot.DiscordConsumer.BuyDrink
-  alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
   alias HelldiversBarBot.MagicEightBall
   alias Nostrum.Api
   alias Nostrum.Struct.ApplicationCommandInteractionData
@@ -29,7 +29,7 @@ defmodule HelldiversBarBot.DiscordConsumer do
         Api.create_message(msg.channel_id, Enum.random(phrases))
 
       _ ->
-        FindOrCreateHelldiver.main(discord_user_id)
+        IncrementWallet.main(discord_user_id)
 
         :ignore
     end
