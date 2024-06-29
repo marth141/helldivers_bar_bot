@@ -27,8 +27,10 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
         } = msg
       ) do
     %Drink{description: description} = Drinks.get_drink_by_name!(drink)
+    description = String.downcase(description)
 
     tastes = ["democracy", "liberty", "freedom", "patriotism", "home"]
+    taste = Enum.random(tastes)
 
     response = %{
       type: 4,
@@ -36,7 +38,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
         content: """
         You bought a cold #{drink} for <@#{receiver_discord_id}>
 
-        The #{drink} is a #{String.downcase(description)} and tastes like #{Enum.random(tastes)}!
+        The #{drink} is a #{description} and tastes like #{taste}!
         """
       }
     }
