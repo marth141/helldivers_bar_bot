@@ -36,7 +36,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
       type: 4,
       data: %{
         content: """
-        You bought a cold #{drink} for <@#{receiver_discord_id}>
+        <@#{buyer_discord_id}> bought a cold #{drink} for <@#{receiver_discord_id}>
 
         The #{drink} is a #{description} and tastes like #{taste}!
         """
