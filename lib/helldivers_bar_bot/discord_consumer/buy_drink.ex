@@ -1,4 +1,5 @@
 defmodule HelldiversBarBot.DiscordConsumer.BuyDrink do
+  alias Nostrum.Struct.User
   alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
   alias HelldiversBarBot.Helldivers.Helldiver
   alias Nostrum.Api
@@ -12,21 +13,24 @@ defmodule HelldiversBarBot.DiscordConsumer.BuyDrink do
             name: "buy_drink",
             options: [
               %{name: "drink", value: drink},
-              %{name: "user", value: user_id}
+              %{name: "user", value: receiver_discord_id}
             ]
-          }
+          },
+          user: %User{id: buyer_discord_id}
         } = msg
       ) do
+    IO.inspect(msg)
+
     response = %{
       # ChannelMessageWithSource
       type: 4,
       data: %{
-        content: "You bought a #{drink} for <@#{user_id}>"
+        content: "You bought a #{drink} for <@#{receiver_discord_id}>"
       }
     }
 
     with {:ok, %Helldiver{wallet: wallet, messages_sent: messages_sent} = helldiver} <-
-           FindOrCreateHelldiver.main(user_id) do
+           FindOrCreateHelldiver.main(buyer_discord_id) do
       Helldivers.update_helldiver(helldiver, %{
         "messages_sent" => messages_sent + 1,
         "wallet" => Decimal.sub(wallet, "0.25")
