@@ -60,7 +60,8 @@ defmodule HelldiversBarBot.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
       {:nostrum, "~> 0.8"},
-      {:csv, "~> 3.2"}
+      {:csv, "~> 3.2"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
 

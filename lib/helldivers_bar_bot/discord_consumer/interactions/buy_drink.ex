@@ -13,7 +13,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
   alias Nostrum.Struct.Interaction
   alias HelldiversBarBot.Helldivers
 
-  @spec main(%Interaction{}) :: :ok | {:error, any()}
+  @spec main(Interaction.t()) :: :ok | {:error, any()}
   def main(
         %Interaction{
           data: %ApplicationCommandInteractionData{
@@ -43,17 +43,18 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
       }
     }
 
-    with {:ok, %Helldiver{wallet: wallet, messages_sent: messages_sent} = helldiver} <-
-           FindOrCreateHelldiver.main(buyer_discord_id) do
-      Helldivers.update_helldiver(helldiver, %{
-        "messages_sent" => messages_sent + 1,
-        "wallet" => Decimal.sub(wallet, "0.25")
-      })
+    case FindOrCreateHelldiver.main(buyer_discord_id) do
+      {:ok, %Helldiver{wallet: wallet, messages_sent: messages_sent} = helldiver} ->
+        Helldivers.update_helldiver(helldiver, %{
+          "messages_sent" => messages_sent + 1,
+          "wallet" => Decimal.sub(wallet, "0.25")
+        })
 
-      Api.create_interaction_response(msg, response)
-      :ok
-    else
-      {:error, reason} -> {:error, reason}
+        Api.create_interaction_response(msg, response)
+        :ok
+
+      {:error, reason} ->
+        {:error, reason}
     end
   end
 end

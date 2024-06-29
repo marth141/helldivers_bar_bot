@@ -10,7 +10,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
   alias Nostrum.Struct.Guild.Member
   alias Nostrum.Struct.Interaction
 
-  @spec main(%Interaction{}) :: :ok | {:error, any()}
+  @spec main(Interaction.t()) :: :ok | {:error, any()}
   def main(
         %Interaction{
           data: %ApplicationCommandInteractionData{name: "balance"},
@@ -19,18 +19,20 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
           }
         } = msg
       ) do
-    with {:ok, %Helldiver{wallet: wallet}} <- FindOrCreateHelldiver.main(user_id) do
-      response = %{
-        type: 4,
-        data: %{
-          content: "Your balance is #{wallet}"
+    case FindOrCreateHelldiver.main(user_id) do
+      {:ok, %Helldiver{wallet: wallet}} ->
+        response = %{
+          type: 4,
+          data: %{
+            content: "Your balance is #{wallet}"
+          }
         }
-      }
 
-      Api.create_interaction_response(msg, response)
-      :ok
-    else
-      {:error, message} -> {:error, message}
+        Api.create_interaction_response(msg, response)
+        :ok
+
+      {:error, message} ->
+        {:error, message}
     end
   end
 end

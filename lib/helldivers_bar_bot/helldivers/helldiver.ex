@@ -2,6 +2,13 @@ defmodule HelldiversBarBot.Helldivers.Helldiver do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+          name: String.t(),
+          discord_id: String.t(),
+          messages_sent: integer(),
+          wallet: Decimal.t()
+        }
+
   schema "helldivers" do
     field :name, :string
     field :discord_id, :string
