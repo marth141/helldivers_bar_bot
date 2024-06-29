@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Accounts.UserNotifier do
+  @moduledoc """
+  Used for the account emailer
+  """
+
   import Swoosh.Email
 
   alias HelldiversBarBot.Mailer

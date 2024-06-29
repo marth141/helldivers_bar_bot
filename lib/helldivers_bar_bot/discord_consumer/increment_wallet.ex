@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.DiscordConsumer.IncrementWallet do
+  @moduledoc """
+  Defines the logic for incrementing a Helldiver's wallet for server activity
+  """
+
   alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
   alias HelldiversBarBot.Helldivers
   alias HelldiversBarBot.Helldivers.Helldiver

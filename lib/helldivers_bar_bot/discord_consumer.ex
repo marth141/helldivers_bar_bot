@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.DiscordConsumer do
+  @moduledoc """
+  Defines a consumer for Discord messages to be handled by the bot
+  """
+
   use Nostrum.Consumer
 
   alias HelldiversBarBot.DiscordConsumer.IncrementWallet

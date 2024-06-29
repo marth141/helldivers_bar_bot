@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Accounts.User do
+  @moduledoc """
+  Defines schema and functions related to User
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

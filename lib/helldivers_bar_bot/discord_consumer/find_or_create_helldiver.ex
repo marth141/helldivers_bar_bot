@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver do
+  @moduledoc """
+  Defines logic for finding or creating a Helldiver
+  """
+
   alias HelldiversBarBot.Helldivers
   alias HelldiversBarBot.Helldivers.Helldiver
 

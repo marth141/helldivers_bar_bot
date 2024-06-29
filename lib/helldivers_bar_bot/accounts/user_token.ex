@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Accounts.UserToken do
+  @moduledoc """
+  Provides functions related to UserToken
+  """
+
   use Ecto.Schema
   import Ecto.Query
   alias HelldiversBarBot.Accounts.UserToken

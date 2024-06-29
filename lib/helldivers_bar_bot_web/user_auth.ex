@@ -1,4 +1,8 @@
 defmodule HelldiversBarBotWeb.UserAuth do
+  @moduledoc """
+  Provides functions related to User Authentication
+  """
+
   use HelldiversBarBotWeb, :verified_routes
 
   import Plug.Conn

@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Drinks.Drink do
+  @moduledoc """
+  Defines a drink for a Helldiver to purchase for another Helldiver
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

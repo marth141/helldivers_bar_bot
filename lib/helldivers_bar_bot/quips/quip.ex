@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Quips.Quip do
+  @moduledoc """
+  Defines schema for a Quip which would be a witty line of dialogue
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

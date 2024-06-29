@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.MagicEightBall do
+  @moduledoc """
+  Provides Magic Eight Ball phrases
+  """
+
   def phrases() do
     [
       "It is certain",

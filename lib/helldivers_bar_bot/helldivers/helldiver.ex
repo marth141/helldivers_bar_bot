@@ -1,4 +1,8 @@
 defmodule HelldiversBarBot.Helldivers.Helldiver do
+  @moduledoc """
+  Defines a Helldiver within a Discord server
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 
