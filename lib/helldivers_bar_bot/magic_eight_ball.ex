@@ -20,8 +20,7 @@ defmodule HelldiversBarBot.MagicEightBall do
       "My reply is no",
       "My sources say no",
       "Outlook not so good",
-      "Very doubtful",
-      "oh yeh baby"
+      "Very doubtful"
     ]
   end
 end
