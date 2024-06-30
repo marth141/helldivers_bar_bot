@@ -5,6 +5,7 @@ defmodule HelldiversBarBot.Commands.Help do
 
   alias Nostrum.Cache.Me
 
+  @spec add() :: {:ok, map()} | {:error, term()}
   def add() do
     application_id = Me.get().id
 

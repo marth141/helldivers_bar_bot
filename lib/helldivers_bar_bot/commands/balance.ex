@@ -5,6 +5,7 @@ defmodule HelldiversBarBot.Commands.Balance do
 
   alias Nostrum.Cache.Me
 
+  @spec add() :: {:ok, map()} | {:error, term()}
   def add() do
     application_id = Me.get().id
 
