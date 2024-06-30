@@ -61,7 +61,8 @@ defmodule HelldiversBarBot.MixProject do
       {:bandit, "~> 1.2"},
       {:nostrum, "~> 0.8"},
       {:csv, "~> 3.2"},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:faker, "~> 0.18", only: :test}
     ]
   end
 
