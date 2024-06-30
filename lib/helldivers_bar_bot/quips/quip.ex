@@ -6,6 +6,10 @@ defmodule HelldiversBarBot.Quips.Quip do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+          text: String.t()
+        }
+
   schema "quips" do
     field :text, :string
 
@@ -13,6 +17,7 @@ defmodule HelldiversBarBot.Quips.Quip do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map()) :: Ecto.Changeset.t()
   def changeset(quip, attrs) do
     quip
     |> cast(attrs, [:text])

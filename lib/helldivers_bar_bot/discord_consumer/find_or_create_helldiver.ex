@@ -6,7 +6,7 @@ defmodule HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver do
   alias HelldiversBarBot.Helldivers
   alias HelldiversBarBot.Helldivers.Helldiver
 
-  @spec main(String.t()) :: {:ok, Helldiver.t()} | {:error, any()}
+  @spec main(String.t()) :: {:ok, Helldiver.t()} | {:error, term()}
   def main(discord_user_id) do
     case Helldivers.get_helldiver_by_discord_id(to_string(discord_user_id)) do
       # Found Helldiver

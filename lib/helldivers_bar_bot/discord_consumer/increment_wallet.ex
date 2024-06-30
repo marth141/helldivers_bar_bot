@@ -7,6 +7,7 @@ defmodule HelldiversBarBot.DiscordConsumer.IncrementWallet do
   alias HelldiversBarBot.Helldivers
   alias HelldiversBarBot.Helldivers.Helldiver
 
+  @spec main(String.t()) :: {:ok, Helldiver.t()} | {:error, Ecto.Changeset.t()}
   def main(discord_user_id) do
     {:ok, %Helldiver{wallet: wallet} = helldiver} =
       FindOrCreateHelldiver.main(discord_user_id)

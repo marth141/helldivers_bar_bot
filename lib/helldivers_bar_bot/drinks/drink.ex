@@ -6,6 +6,12 @@ defmodule HelldiversBarBot.Drinks.Drink do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+          name: String.t(),
+          description: String.t(),
+          cost: Decimal.t()
+        }
+
   schema "drinks" do
     field :name, :string
     field :description, :string
@@ -15,6 +21,7 @@ defmodule HelldiversBarBot.Drinks.Drink do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map()) :: Ecto.Changeset.t()
   def changeset(drink, attrs) do
     drink
     |> cast(attrs, [:name, :cost, :description])

@@ -23,6 +23,7 @@ defmodule HelldiversBarBot.Helldivers.Helldiver do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map()) :: Ecto.Changeset.t()
   def changeset(member, attrs) do
     member
     |> cast(attrs, [:discord_id, :name, :messages_sent, :wallet])

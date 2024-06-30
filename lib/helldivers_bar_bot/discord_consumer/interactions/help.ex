@@ -8,7 +8,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Help do
   alias Nostrum.Struct.Interaction
 
   # credo:disable-for-next-line
-  @spec main(%Interaction{}) :: {:ok} | {:error, any()} | Nostrum.Api.error()
+  @spec main(%Interaction{}) :: {:ok} | {:error, term()}
   def main(
         %Interaction{
           data: %ApplicationCommandInteractionData{name: "help"}

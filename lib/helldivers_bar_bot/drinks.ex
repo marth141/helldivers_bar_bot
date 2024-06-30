@@ -37,7 +37,8 @@ defmodule HelldiversBarBot.Drinks do
   """
   def get_drink!(id), do: Repo.get!(Drink, id)
 
-  def get_drink_by_name!(name), do: Repo.get_by!(Drink, name: name)
+  @spec get_drink_by_name!(String.t()) :: Drink.t() | term() | nil
+  def get_drink_by_name!(name), do: Repo.get_by(Drink, name: name)
 
   @doc """
   Creates a drink.

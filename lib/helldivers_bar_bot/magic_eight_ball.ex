@@ -3,6 +3,7 @@ defmodule HelldiversBarBot.MagicEightBall do
   Provides Magic Eight Ball phrases
   """
 
+  @spec phrases() :: [String.t()]
   def phrases() do
     [
       "It is certain",

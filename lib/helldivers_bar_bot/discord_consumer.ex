@@ -39,6 +39,8 @@ defmodule HelldiversBarBot.DiscordConsumer do
     end
   end
 
+  @spec handle_event({:INTERACTION_CREATE, Interaction.t(), WSState.t()}) ::
+          {:ok} | {:error, term()}
   def handle_event(
         {:INTERACTION_CREATE,
          %Interaction{
@@ -50,6 +52,8 @@ defmodule HelldiversBarBot.DiscordConsumer do
     Balance.main(msg)
   end
 
+  @spec handle_event({:INTERACTION_CREATE, Interaction.t(), WSState.t()}) ::
+          {:ok} | {:error, term()}
   def handle_event(
         {:INTERACTION_CREATE,
          %Interaction{

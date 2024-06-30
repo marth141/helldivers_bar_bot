@@ -11,7 +11,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
   alias Nostrum.Struct.User
 
   # credo:disable-for-next-line
-  @spec main(%Interaction{}) :: {:ok} | {:error, any()} | Nostrum.Api.error()
+  @spec main(%Interaction{}) :: {:ok} | {:error, term()}
   def main(
         %Interaction{
           data: %ApplicationCommandInteractionData{name: "balance"},
