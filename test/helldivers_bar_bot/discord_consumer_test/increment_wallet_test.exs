@@ -1,9 +1,10 @@
 defmodule HelldiversBarBot.DiscordConsumerTest.IncrementWalletTest do
-  alias HelldiversBarBot.Helldivers.Helldiver
+  use ExUnit.Case
+  use HelldiversBarBot.DataCase
+
   alias HelldiversBarBot.DiscordConsumer.IncrementWallet
   alias HelldiversBarBot.Helldivers
-  use HelldiversBarBot.DataCase
-  use ExUnit.Case
+  alias HelldiversBarBot.Helldivers.Helldiver
 
   describe "main/1" do
     setup do
