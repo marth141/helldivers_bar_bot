@@ -64,4 +64,17 @@ defmodule HelldiversBarBot.DiscordConsumer do
       ) do
     BuyDrink.main(msg)
   end
+
+  @spec handle_event({:INTERACTION_CREATE, Interaction.t(), WSState.t()}) ::
+          {:ok} | {:error, term()}
+  def handle_event(
+        {:INTERACTION_CREATE,
+         %Interaction{
+           data: %ApplicationCommandInteractionData{
+             name: "help"
+           }
+         } = msg, _ws_state}
+      ) do
+    Help.main(msg)
+  end
 end
