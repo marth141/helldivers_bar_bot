@@ -9,7 +9,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
   alias Nostrum.Struct.WSState
 
   describe "handle_event/1" do
-    test "balance interaction returns balance" do
+    test "balance interaction sends balance response" do
       expect(Nostrum.Api, :create_interaction_response, fn _msg, _response -> {:ok} end)
 
       expect(Nostrum.Api, :get_user, fn _user_id ->
