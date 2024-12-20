@@ -119,4 +119,38 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
              "helldiver wallet successfully charged"
     end
   end
+
+  describe "handle_event/1 help" do
+    test "successfully sends message on help command" do
+      expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
+        assert response == %{
+                 data: %{
+                   content: """
+                   Hello there, I am your bartender. Here is a list of some commands you can issue me.
+
+                   /balance - Gives the balance of a Helldiver's wallet
+                   /buy_drink - Buys a drink for a Helldiver
+                   /help - Displays this help message
+
+                   Every message you send in the server will result in being rewarded with 0.25 bar credits.
+                   These can be used to purchase drinks.
+                   """
+                 },
+                 type: 4
+               }
+
+        {:ok}
+      end)
+
+      assert {:ok} =
+               DiscordConsumer.handle_event(
+                 {:INTERACTION_CREATE,
+                  %Interaction{
+                    data: %ApplicationCommandInteractionData{
+                      name: "help"
+                    }
+                  }, %WSState{}}
+               )
+    end
+  end
 end
