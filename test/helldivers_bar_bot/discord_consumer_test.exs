@@ -13,7 +13,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
   alias Nostrum.Struct.User
   alias Nostrum.Struct.WSState
 
-  describe "handle_event/1 balance" do
+  describe "handle_event/1 :INTERACTION_CREATE balance" do
     test "balance interaction retrieves new helldiver and reports balance 0" do
       discord_id = 1234
 
@@ -74,7 +74,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
     end
   end
 
-  describe "handle_event/1 buy_drink" do
+  describe "handle_event/1 :INTERACTION_CREATE buy_drink" do
     test "successful buy_drink interaction" do
       discord_buyer_id = 1234
 
@@ -123,7 +123,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
     end
   end
 
-  describe "handle_event/1 help" do
+  describe "handle_event/1 :INTERACTION_CREATE help" do
     test "successfully sends message on help command" do
       expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
         assert response == %{
@@ -157,7 +157,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
     end
   end
 
-  describe "handle_event/1 increment wallet" do
+  describe "handle_event/1 :MESSAGE_CREATE increment wallet" do
     test "when any message is received, add helldiver and increment helldriver wallet" do
       discord_user_id = 1234
 
@@ -209,7 +209,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
     end
   end
 
-  describe "handle_event/1 barkeep" do
+  describe "handle_event/1 :MESSAGE_CREATE barkeep" do
     test "when message with 'barkeep,' received, produce MagicEightBall phrase" do
       discord_user_id = 1234
 
