@@ -5,7 +5,7 @@ defmodule HelldiversBarBot.MixProject do
     [
       app: :helldivers_bar_bot,
       version: "0.1.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -59,10 +59,11 @@ defmodule HelldiversBarBot.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
-      {:nostrum, "~> 0.8"},
+      {:nostrum, "~> 0.10.0"},
       {:csv, "~> 3.2"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:faker, "~> 0.18", only: :test}
+      {:faker, "~> 0.18", only: :test},
+      {:mimic, "~> 1.10", only: :test}
     ]
   end
 
