@@ -5,6 +5,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
   alias HelldiversBarBot.DiscordConsumer
   alias HelldiversBarBot.Drinks.Drink
   alias HelldiversBarBot.Helldivers.Helldiver
+  alias HelldiversBarBot.MagicEightBall
 
   alias Nostrum.Struct.ApplicationCommandInteractionData
   alias Nostrum.Struct.Interaction
@@ -177,7 +178,9 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
                   }, %WSState{}}
                )
 
-      assert %Helldiver{wallet: wallet} = Repo.get_by!(Helldiver, discord_id: to_string(discord_user_id))
+      assert %Helldiver{wallet: wallet} =
+               Repo.get_by!(Helldiver, discord_id: to_string(discord_user_id))
+
       assert wallet == Decimal.new("0.25")
     end
 
@@ -185,7 +188,10 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
       discord_user_id = 1234
       wallet_balance = "0.25"
 
-      Repo.insert!(%Helldiver{discord_id: to_string(discord_user_id), wallet: Decimal.new(wallet_balance)})
+      Repo.insert!(%Helldiver{
+        discord_id: to_string(discord_user_id),
+        wallet: Decimal.new(wallet_balance)
+      })
 
       assert :ignore =
                DiscordConsumer.handle_event(
@@ -196,8 +202,31 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
                   }, %WSState{}}
                )
 
-      assert %Helldiver{wallet: wallet} = Repo.get_by!(Helldiver, discord_id: to_string(discord_user_id))
+      assert %Helldiver{wallet: wallet} =
+               Repo.get_by!(Helldiver, discord_id: to_string(discord_user_id))
+
       assert wallet == Decimal.new("0.50")
+    end
+  end
+
+  describe "handle_event/1 barkeep" do
+    test "when message with 'barkeep,' received, produce MagicEightBall phrase" do
+      discord_user_id = 1234
+
+      expect(Nostrum.Api, :create_message, fn _channel_id, content ->
+        assert content in MagicEightBall.phrases()
+        {:ok, %Message{content: content}}
+      end)
+
+      assert {:ok, %Message{}} =
+               DiscordConsumer.handle_event(
+                 {:MESSAGE_CREATE,
+                  %Message{
+                    author: %User{id: discord_user_id},
+                    content: "barkeep, funk my ass",
+                    channel_id: 1234
+                  }, %WSState{}}
+               )
     end
   end
 end
