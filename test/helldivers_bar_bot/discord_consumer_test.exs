@@ -5,8 +5,10 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
   alias HelldiversBarBot.DiscordConsumer
   alias HelldiversBarBot.Drinks.Drink
   alias HelldiversBarBot.Helldivers.Helldiver
+
   alias Nostrum.Struct.ApplicationCommandInteractionData
   alias Nostrum.Struct.Interaction
+  alias Nostrum.Struct.Message
   alias Nostrum.Struct.User
   alias Nostrum.Struct.WSState
 
@@ -151,6 +153,51 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
                     }
                   }, %WSState{}}
                )
+    end
+  end
+
+  describe "handle_event/1 increment wallet" do
+    test "when any message is received, add helldiver and increment helldriver wallet" do
+      discord_user_id = 1234
+
+      expect(Nostrum.Api, :get_user, fn _user_id ->
+        {:ok,
+         %User{
+           id: discord_user_id,
+           username: "some username"
+         }}
+      end)
+
+      assert :ignore =
+               DiscordConsumer.handle_event(
+                 {:MESSAGE_CREATE,
+                  %Message{
+                    author: %User{id: discord_user_id},
+                    content: "some content"
+                  }, %WSState{}}
+               )
+
+      assert %Helldiver{wallet: wallet} = Repo.get_by!(Helldiver, discord_id: to_string(discord_user_id))
+      assert wallet == Decimal.new("0.25")
+    end
+
+    test "when any message is received and helldiver exists, increment helldriver wallet" do
+      discord_user_id = 1234
+      wallet_balance = "0.25"
+
+      Repo.insert!(%Helldiver{discord_id: to_string(discord_user_id), wallet: Decimal.new(wallet_balance)})
+
+      assert :ignore =
+               DiscordConsumer.handle_event(
+                 {:MESSAGE_CREATE,
+                  %Message{
+                    author: %User{id: discord_user_id},
+                    content: "some content"
+                  }, %WSState{}}
+               )
+
+      assert %Helldiver{wallet: wallet} = Repo.get_by!(Helldiver, discord_id: to_string(discord_user_id))
+      assert wallet == Decimal.new("0.50")
     end
   end
 end
