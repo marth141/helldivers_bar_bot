@@ -1,10 +1,10 @@
 defmodule HelldiversBarBot.DiscordConsumerTest do
-  alias HelldiversBarBot.Helldivers.Helldiver
-  alias HelldiversBarBot.Drinks.Drink
   use HelldiversBarBot.DataCase
   use Mimic
 
   alias HelldiversBarBot.DiscordConsumer
+  alias HelldiversBarBot.Drinks.Drink
+  alias HelldiversBarBot.Helldivers.Helldiver
   alias Nostrum.Struct.ApplicationCommandInteractionData
   alias Nostrum.Struct.Interaction
   alias Nostrum.Struct.User
