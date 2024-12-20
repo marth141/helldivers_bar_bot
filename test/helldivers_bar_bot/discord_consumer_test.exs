@@ -47,12 +47,14 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
     end
 
     test "balance interaction reports wallet of existing user" do
+      wallet_balance = "0.50"
+
       expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
-        assert response == %{data: %{content: "Your balance is 0.50"}, type: 4}
+        assert response == %{data: %{content: "Your balance is #{wallet_balance}"}, type: 4}
         {:ok}
       end)
 
-      Repo.insert!(%Helldiver{discord_id: "1234", wallet: Decimal.new("0.50")})
+      Repo.insert!(%Helldiver{discord_id: "1234", wallet: Decimal.new(wallet_balance)})
 
       assert {:ok} =
                DiscordConsumer.handle_event(
