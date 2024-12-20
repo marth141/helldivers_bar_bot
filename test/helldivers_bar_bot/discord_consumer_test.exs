@@ -40,7 +40,10 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
                   }, %WSState{}}
                )
 
-      assert %Helldiver{} = Repo.get_by!(Helldiver, discord_id: to_string(discord_id))
+      assert %Helldiver{wallet: wallet} =
+               Repo.get_by!(Helldiver, discord_id: to_string(discord_id))
+
+      assert wallet == Decimal.new("0")
     end
 
     test "balance interaction reports wallet of existing user" do
