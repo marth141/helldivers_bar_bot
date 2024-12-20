@@ -66,6 +66,8 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
     test "successful buy_drink interaction" do
       discord_buyer_id = 1234
 
+      drink_price = "0.25"
+
       expect(Nostrum.Api, :create_interaction_response, fn _msg, _response -> {:ok} end)
 
       expect(Nostrum.Api, :get_user, fn _user_id ->
@@ -78,7 +80,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
 
       Repo.insert!(%Drink{
         name: "beer",
-        cost: Decimal.new("0.25"),
+        cost: Decimal.new(drink_price),
         description: "some description"
       })
 
@@ -102,9 +104,10 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
 
       assert %Helldiver{} =
                helldiver = Repo.get_by(Helldiver, discord_id: to_string(discord_buyer_id)),
-             "helldiver successfully added to database"
+             "helldiver successfully retrieved from database"
 
-      assert helldiver.wallet == Decimal.new("-0.25"), "helldiver wallet successfully charged"
+      assert helldiver.wallet == Decimal.new("-#{drink_price}"),
+             "helldiver wallet successfully charged"
     end
   end
 end
