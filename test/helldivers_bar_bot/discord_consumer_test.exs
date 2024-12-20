@@ -12,6 +12,8 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
 
   describe "handle_event/1 balance" do
     test "balance interaction retrieves new helldiver and reports balance 0" do
+      discord_id = 1234
+
       expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
         assert response == %{data: %{content: "Your balance is 0"}, type: 4}
         {:ok}
@@ -20,7 +22,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
       expect(Nostrum.Api, :get_user, fn _user_id ->
         {:ok,
          %User{
-           id: 1234,
+           id: discord_id,
            username: "some username"
          }}
       end)
@@ -37,6 +39,8 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
                     }
                   }, %WSState{}}
                )
+
+      assert %Helldiver{} = Repo.get_by!(Helldiver, discord_id: to_string(discord_id))
     end
 
     test "balance interaction reports wallet of existing user" do
