@@ -34,6 +34,9 @@ defmodule HelldiversBarBot.DiscordConsumer do
 
         Api.create_message(msg.channel_id, Enum.random(phrases))
 
+      "whats the latest?" ->
+        HelldiversBarBot.DiscordConsumer.News.main(msg)
+
       _ ->
         IncrementWallet.main(discord_user_id)
 
