@@ -231,7 +231,7 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
   end
 
   describe "handle_event/1 :MESSAGE_CREATE whats the latest?" do
-    test "successfully retrieves news and responds with it" do
+    test "successfully retrieves news and responds with it on whats the latest?" do
       expect(Helldivers2.Api, :get_news, fn ->
         [
           %{
@@ -255,6 +255,35 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
                   %Message{
                     author: %User{id: 1234},
                     content: "whats the latest?",
+                    channel_id: 1234
+                  }, %WSState{}}
+               )
+    end
+
+    test "successfully retrieves news and responds with it on what's the latest?" do
+      expect(Helldivers2.Api, :get_news, fn ->
+        [
+          %{
+            "id" => 2806,
+            "message" => "The TCS has been fully activated on half of the Barrier Planets.",
+            "published" => 2_899_330,
+            "tagIds" => [],
+            "type" => 0
+          }
+        ]
+      end)
+
+      expect(Nostrum.Api, :create_message, fn _channel_id, content ->
+        assert content == "The TCS has been fully activated on half of the Barrier Planets."
+        {:ok, %Message{content: content}}
+      end)
+
+      assert {:ok, %Message{}} =
+               DiscordConsumer.handle_event(
+                 {:MESSAGE_CREATE,
+                  %Message{
+                    author: %User{id: 1234},
+                    content: "what's the latest?",
                     channel_id: 1234
                   }, %WSState{}}
                )

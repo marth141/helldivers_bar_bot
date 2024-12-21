@@ -37,6 +37,9 @@ defmodule HelldiversBarBot.DiscordConsumer do
       "whats the latest?" ->
         HelldiversBarBot.DiscordConsumer.News.main(msg)
 
+      "what's the latest?" ->
+        HelldiversBarBot.DiscordConsumer.News.main(msg)
+
       _ ->
         IncrementWallet.main(discord_user_id)
 
