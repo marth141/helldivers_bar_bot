@@ -2,6 +2,8 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
   use HelldiversBarBot.DataCase
   use Mimic
 
+  import Bitwise
+
   alias HelldiversBarBot.DiscordConsumer
   alias HelldiversBarBot.Drinks.Drink
   alias HelldiversBarBot.Helldivers.Helldiver
@@ -18,7 +20,14 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
       discord_id = 1234
 
       expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
-        assert response == %{data: %{content: "Your balance is 0"}, type: 4}
+        ephemeral = 1 <<< 6
+
+        assert response == %{
+                 data: %{content: "Your balance is 0"},
+                 type: 4,
+                 message: %{flags: ephemeral}
+               }
+
         {:ok}
       end)
 
@@ -53,7 +62,14 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
       wallet_balance = "0.50"
 
       expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
-        assert response == %{data: %{content: "Your balance is #{wallet_balance}"}, type: 4}
+        ephemeral = 1 <<< 6
+
+        assert response == %{
+                 data: %{content: "Your balance is #{wallet_balance}"},
+                 type: 4,
+                 message: %{flags: ephemeral}
+               }
+
         {:ok}
       end)
 

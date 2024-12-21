@@ -2,6 +2,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
   @moduledoc """
   Handles checking a Helldiver's wallet balance on Bot Application Command Interaction.
   """
+  import Bitwise
 
   alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
   alias HelldiversBarBot.Helldivers.Helldiver
@@ -25,6 +26,9 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
           type: 4,
           data: %{
             content: "Your balance is #{wallet}"
+          },
+          message: %{
+            flags: 1 <<< 6
           }
         }
 
