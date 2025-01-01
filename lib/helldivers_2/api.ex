@@ -4,8 +4,9 @@ defmodule Helldivers2.Api do
   def get_major_orders() do
     with {:ok, %Finch.Response{body: body}} <-
            build_client(:get, "/war/major-orders")
-           |> Finch.request(HelldiversBarBot.Finch) do
-      body
+           |> Finch.request(HelldiversBarBot.Finch),
+         {:ok, response} <- Jason.decode(body) do
+      response
     end
   end
 

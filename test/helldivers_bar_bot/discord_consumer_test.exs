@@ -23,9 +23,8 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
         ephemeral = 1 <<< 6
 
         assert response == %{
-                 data: %{content: "Your balance is 0"},
-                 type: 4,
-                 message: %{flags: ephemeral}
+                 data: %{content: "Your balance is 0", flags: ephemeral},
+                 type: 4
                }
 
         {:ok}
@@ -65,9 +64,8 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
         ephemeral = 1 <<< 6
 
         assert response == %{
-                 data: %{content: "Your balance is #{wallet_balance}"},
-                 type: 4,
-                 message: %{flags: ephemeral}
+                 data: %{content: "Your balance is #{wallet_balance}", flags: ephemeral},
+                 type: 4
                }
 
         {:ok}
