@@ -4,7 +4,6 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
   """
   import Bitwise
 
-  alias Nostrum.Struct.Message
   alias HelldiversBarBot.DiscordConsumer.FindOrCreateHelldiver
   alias HelldiversBarBot.Helldivers.Helldiver
   alias Nostrum.Api
