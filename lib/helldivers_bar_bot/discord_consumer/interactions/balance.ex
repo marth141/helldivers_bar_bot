@@ -11,6 +11,14 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
   alias Nostrum.Struct.Interaction
   alias Nostrum.Struct.User
 
+  # Adds flag from discord API which is a bitfield.
+  # Bitfields can be easily done with Bitwise like here.
+  # Since this command should be ephemeral, according to the docs, the flag is 1 << 6.
+  # This should evaluate to the integer 64, but accurately reflects the docs here.
+  #
+  # https://discord.com/developers/docs/resources/message#message-object-message-flags
+  @ephemeral_flag 1 <<< 6
+
   @spec main(Interaction.t()) :: {:ok} | {:error, term()}
   def main(
         %Interaction{
@@ -26,7 +34,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
           type: 4,
           data: %{
             content: "Your balance is #{wallet}",
-            flags: 1 <<< 6
+            flags: @ephemeral_flag
           }
         }
 
