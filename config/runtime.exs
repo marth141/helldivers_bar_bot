@@ -114,4 +114,13 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  # For configuring discord bot via nostrum
+  config :nostrum,
+    token: System.get_env("DISCORD_TOKEN"),
+    gateway_intents: [
+      :guild_members,
+      :guild_messages,
+      :message_content
+    ]
 end
