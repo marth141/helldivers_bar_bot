@@ -6,9 +6,9 @@ defmodule HelldiversBarBot.DiscordConsumer do
   use Nostrum.Consumer
 
   alias HelldiversBarBot.DiscordConsumer.IncrementWallet
-  alias HelldiversBarBot.DiscordConsumer.Interactions.Balance
-  alias HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink
-  alias HelldiversBarBot.DiscordConsumer.Interactions.Help
+  alias HelldiversBarBot.DiscordConsumer.InteractionResponses.Balance
+  alias HelldiversBarBot.DiscordConsumer.InteractionResponses.BuyDrink
+  alias HelldiversBarBot.DiscordConsumer.InteractionResponses.Help
   alias HelldiversBarBot.MagicEightBall
 
   alias Nostrum.Api

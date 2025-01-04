@@ -1,4 +1,4 @@
-defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
+defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.BuyDrink do
   @moduledoc """
   Handles the buying of a drink on Bot Application Command Interaction
   """

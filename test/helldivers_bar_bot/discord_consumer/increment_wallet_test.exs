@@ -1,4 +1,4 @@
-defmodule HelldiversBarBot.DiscordConsumerTest.IncrementWalletTest do
+defmodule HelldiversBarBot.DiscordConsumer.IncrementWalletTest do
   use ExUnit.Case
   use HelldiversBarBot.DataCase
 

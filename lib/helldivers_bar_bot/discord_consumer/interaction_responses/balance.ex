@@ -1,4 +1,4 @@
-defmodule HelldiversBarBot.DiscordConsumer.Interactions.Balance do
+defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.Balance do
   @moduledoc """
   Handles checking a Helldiver's wallet balance on Bot Application Command Interaction.
   """
