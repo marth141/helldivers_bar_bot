@@ -1,7 +1,11 @@
 defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.ListDrinks do
+  import Bitwise
+
   alias Nostrum.Api
   alias Nostrum.Struct.ApplicationCommandInteractionData
   alias Nostrum.Struct.Interaction
+
+  @ephemeral_flag 1 <<< 6
 
   def main(
         %Interaction{
@@ -14,7 +18,8 @@ defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.ListDrinks do
     response = %{
       type: 4,
       data: %{
-        content: drink_list_payload
+        content: drink_list_payload,
+        flags: @ephemeral_flag
       }
     }
 
