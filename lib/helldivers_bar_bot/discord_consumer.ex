@@ -9,6 +9,7 @@ defmodule HelldiversBarBot.DiscordConsumer do
   alias HelldiversBarBot.DiscordConsumer.InteractionResponses.Balance
   alias HelldiversBarBot.DiscordConsumer.InteractionResponses.BuyDrink
   alias HelldiversBarBot.DiscordConsumer.InteractionResponses.Help
+  alias HelldiversBarBot.DiscordConsumer.InteractionResponses.ListDrinks
   alias HelldiversBarBot.MagicEightBall
 
   alias Nostrum.Api
@@ -84,5 +85,18 @@ defmodule HelldiversBarBot.DiscordConsumer do
          } = msg, _ws_state}
       ) do
     Help.main(msg)
+  end
+
+  @spec handle_event({:INTERACTION_CREATE, Interaction.t(), WSState.t()}) ::
+          {:ok} | {:error, term()}
+  def handle_event(
+        {:INTERACTION_CREATE,
+         %Interaction{
+           data: %ApplicationCommandInteractionData{
+             name: "list_drinks"
+           }
+         } = msg, _ws_state}
+      ) do
+    ListDrinks.main(msg)
   end
 end

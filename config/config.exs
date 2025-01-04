@@ -61,6 +61,15 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# For configuring discord bot via nostrum
+config :nostrum,
+  token: System.get_env("DISCORD_TOKEN"),
+  gateway_intents: [
+    :guild_members,
+    :guild_messages,
+    :message_content
+  ]
+
 config :helldivers_bar_bot, env: config_env()
 
 # Import environment specific config. This must remain at the bottom

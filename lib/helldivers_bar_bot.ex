@@ -45,6 +45,7 @@ defmodule HelldiversBarBot do
     Commands.Balance.add()
     Commands.BuyDrink.add()
     Commands.Help.add()
+    Commands.ListDrink.add()
   end
 
   def add_drinks_from_csv() do
