@@ -26,7 +26,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
           user: %User{id: buyer_discord_id}
         } = msg
       ) do
-    %Drink{description: description} = Drinks.get_drink_by_name!(drink)
+    %Drink{description: description, cost: cost} = Drinks.get_drink_by_name!(drink)
     description = String.downcase(description)
 
     tastes = ["democracy", "liberty", "freedom", "patriotism", "home"]
@@ -47,7 +47,7 @@ defmodule HelldiversBarBot.DiscordConsumer.Interactions.BuyDrink do
       {:ok, %Helldiver{wallet: wallet, messages_sent: messages_sent} = helldiver} ->
         Helldivers.update_helldiver(helldiver, %{
           "messages_sent" => messages_sent + 1,
-          "wallet" => Decimal.sub(wallet, "0.25")
+          "wallet" => Decimal.sub(wallet, cost)
         })
 
         Api.create_interaction_response(msg, response)
