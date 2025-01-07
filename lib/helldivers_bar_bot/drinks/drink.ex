@@ -26,7 +26,7 @@ defmodule HelldiversBarBot.Drinks.Drink do
   @spec changeset(%__MODULE__{}, map()) :: Ecto.Changeset.t()
   def changeset(drink, attrs) do
     drink
-    |> cast(attrs, [:name, :cost, :description])
+    |> cast(attrs, [:name, :cost, :description, :taste])
     |> validate_required([:name, :cost, :description])
   end
 end
