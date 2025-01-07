@@ -9,13 +9,15 @@ defmodule HelldiversBarBot.Drinks.Drink do
   @type t :: %__MODULE__{
           name: String.t(),
           description: String.t(),
-          cost: Decimal.t()
+          cost: Decimal.t(),
+          taste: String.t()
         }
 
   schema "drinks" do
     field :name, :string
     field :description, :string
     field :cost, :decimal
+    field :taste, :string
 
     timestamps(type: :utc_datetime)
   end

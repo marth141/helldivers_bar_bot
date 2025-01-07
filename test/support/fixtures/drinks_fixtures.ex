@@ -13,7 +13,8 @@ defmodule HelldiversBarBot.DrinksFixtures do
       |> Enum.into(%{
         cost: 42,
         description: "some description",
-        name: "some name"
+        name: "some name",
+        taste: "some taste"
       })
       |> HelldiversBarBot.Drinks.create_drink()
 
