@@ -1,4 +1,10 @@
 defmodule HelldiversBarBot.Release do
+  @moduledoc """
+  Provides functions for migrating and rolling back the application's database schema.
+
+  This module is responsible for running migrations or rolling back migrations to a specific version.
+  """
+
   @app :helldivers_bar_bot
 
   def migrate do

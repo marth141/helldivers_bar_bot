@@ -1,4 +1,10 @@
 defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.ListDrinks do
+  @moduledoc """
+  Handles listing available drinks in response to a `/list_drinks` command.
+
+  This module defines the `main/1` function, which is responsible for generating a list of drinks and sending it as a Discord interaction response.
+  """
+
   import Bitwise
 
   alias Nostrum.Api
