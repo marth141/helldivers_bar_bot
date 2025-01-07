@@ -151,7 +151,8 @@ defmodule HelldiversBarBot.DiscordConsumerTest do
 
                    Every message you send in the server will result in being rewarded with 0.25 bar credits.
                    These can be used to purchase drinks.
-                   """
+                   """,
+                   flags: 1 <<< 6
                  },
                  type: 4
                }

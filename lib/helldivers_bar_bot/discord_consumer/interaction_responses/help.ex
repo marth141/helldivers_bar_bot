@@ -2,10 +2,13 @@ defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.Help do
   @moduledoc """
   Handles checking a Helldiver's wallet balance on Bot Application Command Interaction.
   """
+  import Bitwise
 
   alias Nostrum.Api
   alias Nostrum.Struct.ApplicationCommandInteractionData
   alias Nostrum.Struct.Interaction
+
+  @ephemeral_flag 1 <<< 6
 
   @spec main(Interaction.t()) :: {:ok} | {:error, term()}
   def main(
@@ -25,7 +28,8 @@ defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.Help do
 
         Every message you send in the server will result in being rewarded with 0.25 bar credits.
         These can be used to purchase drinks.
-        """
+        """,
+        flags: @ephemeral_flag
       }
     }
 
