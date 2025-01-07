@@ -26,11 +26,13 @@ defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.BuyDrink do
           user: %User{id: buyer_discord_id}
         } = msg
       ) do
-    %Drink{description: description, cost: cost} = Drinks.get_drink_by_name!(drink)
+    %Drink{description: description, cost: cost, taste: drink_taste} =
+      Drinks.get_drink_by_name!(drink)
+
     description = String.downcase(description)
 
     tastes = ["democracy", "liberty", "freedom", "patriotism", "home"]
-    taste = Enum.random(tastes)
+    taste = if(is_nil(drink_taste), do: Enum.random(tastes), else: drink_taste)
 
     response = %{
       type: 4,
