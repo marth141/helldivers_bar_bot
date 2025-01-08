@@ -22,5 +22,15 @@ defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.HelpTest do
         data: %ApplicationCommandInteractionData{name: "help"}
       })
     end
+
+    test "fails when create_interaction_response fails" do
+      expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
+        {:error, "some error"}
+      end)
+
+      assert {:error, "some error"} = Help.main(%Interaction{
+        data: %ApplicationCommandInteractionData{name: "help"}
+      })
+    end
   end
 end
