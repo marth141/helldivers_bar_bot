@@ -24,7 +24,7 @@ defmodule HelldiversBarBot.DiscordConsumer.InteractionResponses.HelpTest do
     end
 
     test "fails when create_interaction_response fails" do
-      expect(Nostrum.Api, :create_interaction_response, fn _msg, response ->
+      expect(Nostrum.Api, :create_interaction_response, fn _msg, _response ->
         {:error, "some error"}
       end)
 
